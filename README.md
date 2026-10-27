@@ -41,7 +41,7 @@
 
 ### Вариант B — локально
 
-Нужны: Visual Studio 2022 (или Build Tools) с «Разработка классических приложений на C++», CMake и Git. Запустите `build_windows.bat`.
+Нужны: Visual Studio (2022 или новее) или Build Tools с «Разработка классических приложений на C++», CMake и Git. Запустите `build_windows.bat`.
 Результат: `build\Playground_artefacts\Release\VST3\Playground.vst3`.
 
 ## Установка в FL Studio

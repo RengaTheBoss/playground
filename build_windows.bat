@@ -2,7 +2,7 @@
 rem Local Windows build. Needs: Visual Studio 2022 (or Build Tools) with "Desktop development with C++",
 rem CMake and Git in PATH. The first run downloads JUCE (a few minutes).
 
-cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+cmake -S . -B build -A x64
 if errorlevel 1 goto :fail
 
 cmake --build build --config Release --target Playground_VST3 --parallel
