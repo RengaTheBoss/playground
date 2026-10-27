@@ -1,0 +1,34 @@
+name: Build Windows VST3
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build VST3
+        run: cmake --build build --config Release --target Playground_VST3 --parallel
+
+      - name: Build standalone (for quick testing without a DAW)
+        run: cmake --build build --config Release --target Playground_Standalone --parallel
+
+      - name: Collect files
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item -Recurse "build/Playground_artefacts/Release/VST3/Playground.vst3" "dist/Playground.vst3"
+          Copy-Item "build/Playground_artefacts/Release/Standalone/Playground.exe" "dist/Playground-Standalone.exe"
+          Copy-Item "install_vst3_windows.bat" "dist/install_vst3_windows.bat"
+          Get-ChildItem -Recurse dist | Select-Object FullName, Length
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Playground-Windows-VST3
+          path: dist
